@@ -12,6 +12,16 @@ class AuthViewModel with ChangeNotifier {
   String? get errorMessage => _errorMessage;
   bool get isLoading => _isLoading;
 
+  AuthViewModel() {
+    _checkCurrentUser();
+  }
+
+  // Check if user is logged in and update state
+  Future<void> _checkCurrentUser() async {
+    _user = _authService.getCurrentUser();
+    notifyListeners();
+  }
+
   // Register method
   Future<bool> register(String email, String password) async {
     _setLoading(true);
@@ -31,7 +41,6 @@ class AuthViewModel with ChangeNotifier {
     }
   }
 
-
   // Login method
   Future<bool> login(String email, String password) async {
     _setLoading(true);
@@ -50,7 +59,6 @@ class AuthViewModel with ChangeNotifier {
     }
   }
 
-
   // Sign out
   Future<void> logout() async {
     await _authService.signOut();
@@ -61,12 +69,6 @@ class AuthViewModel with ChangeNotifier {
   // Helper to set loading state
   void _setLoading(bool value) {
     _isLoading = value;
-    notifyListeners();
-  }
-
-  // Get current user
-  void checkCurrentUser() {
-    _user = _authService.getCurrentUser();
     notifyListeners();
   }
 
@@ -84,5 +86,4 @@ class AuthViewModel with ChangeNotifier {
       return false;
     }
   }
-
 }
