@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:todotask/viewmodels/auth_view_model.dart';
 import 'package:todotask/views/home_screen.dart';
 import 'login_screen.dart';
+import 'package:todotask/widgets/elevatedbutton_widget.dart';
+import 'package:todotask/widgets/textfield_widget.dart';
 
 class RegistrationScreen extends StatelessWidget {
   final TextEditingController _fullNameController = TextEditingController();
@@ -21,28 +23,31 @@ class RegistrationScreen extends StatelessWidget {
             padding: const EdgeInsets.all(16.0),
             child: Column(
               children: [
-                TextField(
+                CustomTextField(
                   controller: _fullNameController,
-                  decoration: const InputDecoration(labelText: 'Full Name'),
+                  hintText: 'Full Name',
                 ),
-                TextField(
+                const SizedBox(height: 20),
+                CustomTextField(
                   controller: _emailController,
-                  decoration: const InputDecoration(labelText: 'Email'),
+                  hintText: 'Email',
                 ),
-                TextField(
+                const SizedBox(height: 20),
+                CustomTextField(
                   controller: _passwordController,
-                  decoration: const InputDecoration(labelText: 'Password'),
+                  hintText: 'Password',
                   obscureText: true,
                 ),
-                TextField(
+                const SizedBox(height: 20),
+                CustomTextField(
                   controller: _confirmPasswordController,
-                  decoration:
-                      const InputDecoration(labelText: 'Confirm Password'),
+                  hintText: 'Confirm Password',
                   obscureText: true,
                 ),
                 const SizedBox(height: 20),
                 if (authViewModel.isLoading) const CircularProgressIndicator(),
-                ElevatedButton(
+                CustomElevatedButton(
+                  text: 'REGISTER',
                   onPressed: () async {
                     if (_passwordController.text !=
                         _confirmPasswordController.text) {
@@ -58,7 +63,6 @@ class RegistrationScreen extends StatelessWidget {
                     );
 
                     if (success) {
-                      // Navigate to home page after successful registration
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(builder: (context) => HomeScreen()),
@@ -69,18 +73,19 @@ class RegistrationScreen extends StatelessWidget {
                       );
                     }
                   },
-                  child: const Text('Register'),
                 ),
                 const SizedBox(height: 10),
-                ElevatedButton(
+                TextButton(
                   onPressed: () {
-                    // Navigate back to the login page
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(builder: (context) => LoginScreen()),
                     );
                   },
-                  child: const Text('Already have an account? Login'),
+                  child: Text(
+                    "Already have an account? Login",
+                    style: TextStyle(color: Colors.black54),
+                  ),
                 ),
               ],
             ),

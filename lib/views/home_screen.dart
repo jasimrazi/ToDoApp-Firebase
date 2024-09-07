@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -69,7 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 : Stream.value([]),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(child: CircularProgressIndicator());
+                return Center(child: CupertinoActivityIndicator());
               }
 
               if (snapshot.hasError) {
@@ -112,10 +113,14 @@ class _HomeScreenState extends State<HomeScreen> {
           borderRadius: BorderRadius.zero, // No rounded corners
         ),
         child: Center(
-          child: Icon(
-            Icons.add,
-            size: 50,
-            color: Colors.blue,
+          child: CircleAvatar(
+            radius: 30,
+            backgroundColor: Colors.black,
+            child: Icon(
+              Icons.add,
+              size: 35,
+              color: Colors.white,
+            ),
           ),
         ),
       ),

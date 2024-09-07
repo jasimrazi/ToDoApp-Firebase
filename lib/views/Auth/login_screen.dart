@@ -4,6 +4,8 @@ import 'package:todotask/viewmodels/auth_view_model.dart';
 import 'package:todotask/views/Auth/forget_password_screen.dart';
 import 'package:todotask/views/home_screen.dart';
 import 'package:todotask/views/Auth/registration_page.dart';
+import 'package:todotask/widgets/elevatedbutton_widget.dart';
+import 'package:todotask/widgets/textfield_widget.dart';
 
 class LoginScreen extends StatelessWidget {
   final TextEditingController _emailController = TextEditingController();
@@ -19,18 +21,36 @@ class LoginScreen extends StatelessWidget {
             padding: const EdgeInsets.all(16.0),
             child: Column(
               children: [
-                TextField(
+                CustomTextField(
                   controller: _emailController,
-                  decoration: const InputDecoration(labelText: 'Email'),
+                  hintText: 'Email',
                 ),
-                TextField(
+                SizedBox(
+                  height: 20,
+                ),
+                CustomTextField(
                   controller: _passwordController,
-                  decoration: const InputDecoration(labelText: 'Password'),
+                  hintText: 'Password',
                   obscureText: true,
+                ),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ForgotPasswordScreen()),
+                      );
+                    },
+                    child: const Text('Forgot Password?',
+                        style: TextStyle(color: Colors.black54)),
+                  ),
                 ),
                 const SizedBox(height: 20),
                 if (authViewModel.isLoading) const CircularProgressIndicator(),
-                ElevatedButton(
+                CustomElevatedButton(
+                  text: 'CONTINUE',
                   onPressed: () async {
                     bool success = await authViewModel.login(
                       _emailController.text.trim(),
@@ -43,13 +63,12 @@ class LoginScreen extends StatelessWidget {
                       );
                     }
                   },
-                  child: const Text('Login'),
                 ),
                 if (authViewModel.errorMessage != null)
                   Text(authViewModel.errorMessage!,
                       style: const TextStyle(color: Colors.red)),
                 const SizedBox(height: 10),
-                ElevatedButton(
+                TextButton(
                   onPressed: () {
                     Navigator.push(
                       context,
@@ -57,17 +76,10 @@ class LoginScreen extends StatelessWidget {
                           builder: (context) => RegistrationScreen()),
                     );
                   },
-                  child: const Text("Don't have an account? Register"),
-                ),
-                TextButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => ForgotPasswordScreen()),
-                    );
-                  },
-                  child: const Text('Forgot Password?'),
+                  child: Text(
+                    "Don't have an account? Register",
+                    style: TextStyle(color: Colors.black54),
+                  ),
                 ),
               ],
             ),

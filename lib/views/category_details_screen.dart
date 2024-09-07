@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:todotask/services/firestore_service.dart'; // Import FirestoreService
-import 'package:todotask/models/task_model.dart'; // Import Task model
+import 'package:todotask/models/task_model.dart';
+import 'package:todotask/widgets/checkbox_widget.dart'; // Import Task model
 
 class CategoryDetailsScreen extends StatefulWidget {
   final String categoryName;
@@ -176,7 +177,7 @@ class _CategoryDetailsScreenState extends State<CategoryDetailsScreen> {
                   ...tasksForDate.map((task) => ListTile(
                         title: Text(task.name),
                         subtitle: Text("${task.date.toLocal()}".split(' ')[0]),
-                        leading: Checkbox(
+                        leading: CustomCheckbox(
                           value: task.isCompleted,
                           onChanged: (value) async {
                             if (_currentUser != null) {
@@ -199,7 +200,9 @@ class _CategoryDetailsScreenState extends State<CategoryDetailsScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _showAddTaskDialog,
-        child: const Icon(Icons.add),
+        backgroundColor: Colors.black, // Black background color
+        child: const Icon(Icons.add, color: Colors.white), // White plus icon
+        shape: const CircleBorder(), // Ensures the FAB is circular
       ),
     );
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:todotask/views/Auth/login_screen.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -90,7 +91,11 @@ class _ProfilePageState extends State<ProfilePage> {
                     'Logout',
                     () async {
                       await FirebaseAuth.instance.signOut();
-                      Navigator.pushReplacementNamed(context, '/login');
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => LoginScreen(),
+                          ));
                     },
                   ),
                 ],

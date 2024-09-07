@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todotask/viewmodels/auth_view_model.dart';
+import 'package:todotask/widgets/elevatedbutton_widget.dart';
+import 'package:todotask/widgets/textfield_widget.dart';
 
 class ForgotPasswordScreen extends StatelessWidget {
   final TextEditingController _emailController = TextEditingController();
@@ -20,13 +22,14 @@ class ForgotPasswordScreen extends StatelessWidget {
                   style: TextStyle(fontSize: 16),
                 ),
                 const SizedBox(height: 20),
-                TextField(
+                CustomTextField(
                   controller: _emailController,
-                  decoration: const InputDecoration(labelText: 'Email'),
+                  hintText: 'Email',
                 ),
                 const SizedBox(height: 20),
                 if (authViewModel.isLoading) const CircularProgressIndicator(),
-                ElevatedButton(
+                CustomElevatedButton(
+                  text: 'Send Reset Email',
                   onPressed: () async {
                     bool success = await authViewModel.resetPassword(
                       _emailController.text.trim(),
@@ -44,7 +47,6 @@ class ForgotPasswordScreen extends StatelessWidget {
                       );
                     }
                   },
-                  child: const Text('Send Reset Email'),
                 ),
               ],
             ),
